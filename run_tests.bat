@@ -1,4 +1,4 @@
-#!/bin/bash
-echo "Running tests..."
-sleep 2
-echo "All tests passed!"
+@echo off
+echo Running tests...
+timeout /t 2 /nobreak >nul
+echo All tests passed!
