@@ -4,14 +4,14 @@ pipeline {
     stages {
         stage('Test') {
             steps {
-                sh './run_tests.sh | tee test.log'
+                bat 'run_tests.bat > test.log'
             }
             post {
                 always {
                     emailext(
                         subject: "Test Stage - ${currentBuild.currentResult}",
                         body: "Test stage status: ${currentBuild.currentResult}\nCheck logs attached.",
-                        to: 'your-email@gmail.com',
+                        to: 'vikasreddy2708@gmail.com',
                         attachmentsPattern: 'test.log'
                     )
                 }
@@ -20,14 +20,14 @@ pipeline {
 
         stage('Security Scan') {
             steps {
-                sh './scan.sh | tee scan.log'
+                bat 'scan.bat > scan.log'
             }
             post {
                 always {
                     emailext(
                         subject: "Security Scan - ${currentBuild.currentResult}",
                         body: "Security scan status: ${currentBuild.currentResult}\nCheck logs attached.",
-                        to: 'your-email@gmail.com',
+                        to: 'vikasreddy2708@gmail.com',
                         attachmentsPattern: 'scan.log'
                     )
                 }
