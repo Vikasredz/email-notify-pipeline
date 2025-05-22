@@ -4,7 +4,10 @@ pipeline {
     stages {
         stage('Test') {
             steps {
-                bat 'run_tests.bat > test.log'
+                script {
+                    def output = bat(returnStdout: true, script: 'run_tests.bat')
+                    writeFile file: 'test.log', text: output
+                }
             }
             post {
                 always {
@@ -20,7 +23,10 @@ pipeline {
 
         stage('Security Scan') {
             steps {
-                bat 'scan.bat > scan.log'
+                script {
+                    def output = bat(returnStdout: true, script: 'scan.bat')
+                    writeFile file: 'scan.log', text: output
+                }
             }
             post {
                 always {
