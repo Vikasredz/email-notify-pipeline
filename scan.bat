@@ -1,4 +1,4 @@
-#!/bin/bash
-echo "Performing security scan..."
-sleep 2
-echo "No vulnerabilities found."
+@echo off
+echo Performing security scan...
+timeout /t 2 /nobreak >nul
+echo No vulnerabilities found.
