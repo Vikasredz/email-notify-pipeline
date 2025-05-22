@@ -5,7 +5,8 @@ pipeline {
         stage('Test') {
             steps {
                 script {
-                    def output = bat(returnStdout: true, script: 'run_tests.bat')
+                    // Run tests and capture output
+                    def output = bat(returnStdout: true, script: 'run_tests.bat').trim()
                     writeFile file: 'test.log', text: output
                 }
             }
@@ -13,7 +14,7 @@ pipeline {
                 always {
                     emailext(
                         subject: "Test Stage - ${currentBuild.currentResult}",
-                        body: "Test stage status: ${currentBuild.currentResult}\nCheck logs attached.",
+                        body: "Test stage status: ${currentBuild.currentResult}\nCheck attached logs.",
                         to: 'vikasreddy2708@gmail.com',
                         attachmentsPattern: 'test.log'
                     )
@@ -24,7 +25,8 @@ pipeline {
         stage('Security Scan') {
             steps {
                 script {
-                    def output = bat(returnStdout: true, script: 'scan.bat')
+                    // Run security scan and capture output
+                    def output = bat(returnStdout: true, script: 'scan.bat').trim()
                     writeFile file: 'scan.log', text: output
                 }
             }
@@ -32,7 +34,7 @@ pipeline {
                 always {
                     emailext(
                         subject: "Security Scan - ${currentBuild.currentResult}",
-                        body: "Security scan status: ${currentBuild.currentResult}\nCheck logs attached.",
+                        body: "Security scan status: ${currentBuild.currentResult}\nCheck attached logs.",
                         to: 'vikasreddy2708@gmail.com',
                         attachmentsPattern: 'scan.log'
                     )
